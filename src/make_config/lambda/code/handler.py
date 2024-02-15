@@ -14,7 +14,7 @@ class LambdaCdkStack(core.Stack):
             self, "MyLambdaFunction",
             runtime=_lambda.Runtime.PYTHON_3_8,
             handler="index.lambda_handler",
-            code=_lambda.Code.from_asset("path/to/your/lambda/code"),
+            code=_lambda.Code.from_asset("make_config/lambda/code"),
             environment={
                 'MODEL_ID': 'anthropic.claude-instant-v1'
             }

@@ -4,17 +4,17 @@ from aws_cdk import (
     core
 )
 
-class CustomLambdaCdkStack(core.Stack):
+class RulesLambdaCdkStack(core.Stack):
 
     def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Create Lambda function
         lambda_function = _lambda.Function(
-            self, "CustomLambdaFunction",
+            self, "RulesLambdaFunction",
             runtime=_lambda.Runtime.PYTHON_3_8,
             handler="index.lambda_handler",
-            code=_lambda.Code.from_asset("path/to/your/lambda/code")
+            code=_lambda.Code.from_asset("post_processing/lambda/code")
         )
 
         # Create API Gateway
@@ -32,5 +32,5 @@ class CustomLambdaCdkStack(core.Stack):
         api_resource.add_method("POST", integration)
 
 app = core.App()
-CustomLambdaCdkStack(app, "CustomLambdaCdkStack")
+RulesLambdaCdkStack(app, "RulesLambdaCdkStack")
 app.synth()
