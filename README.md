@@ -24,7 +24,6 @@ The AWS CDK project deploys an S3 bucket and a Step Function with Lambda functio
     - `requirements.txt`: Lists the Python dependencies for this Lambda function.
   - `post_processing/`: Lambda function for the "PostProcessing" step.
     - `lambda_handler.py`: Contains the Lambda function code.
-    - `requirements.txt`: Lists the Python dependencies for this Lambda function.
 
 - `cdk.json`: Configuration file for CDK.
 - `requirements.txt`: Lists any global dependencies for your CDK project.
