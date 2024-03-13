@@ -1,5 +1,6 @@
 # document_processing
 
+# This app is under development
 This repository process scan of documents and use LLM to reerieve desired information from the document. 
 The AWS CDK project deploys an S3 bucket and a Step Function with Lambda functions.
 
