@@ -7,7 +7,14 @@
     "exclude": [
       "cdk.out",
       "**/*.pyc",
-      "**/__pycache__"
+      "**/__pycache__",
+      "README.md",
+      "cdk*.json",
+      "requirements*.txt",
+      "source.bat",
+      "**/__init__.py",
+      "python/__pycache__",
+      "tests"
     ]
   },
   "context": {

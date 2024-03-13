@@ -1,13 +1,17 @@
+import sys
+print('aha',sys.path)
+
 from aws_cdk import (
     aws_stepfunctions as sfn,
     aws_stepfunctions_tasks as tasks,
     aws_lambda as _lambda,
-    core,
-    aws_s3 as s3
+    # core,
+    aws_s3 as s3,
+    Stack, App
 )
 
-class S3BucketCdkStack(core.Stack):
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+class S3BucketCdkStack(Stack):
+    def __init__(self, app: App, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Create S3 bucket
@@ -18,43 +22,43 @@ class S3BucketCdkStack(core.Stack):
         )
 
 
-class StepFunctionCdkStack(core.Stack):
+class StepFunctionCdkStack(Stack):
 
-    def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+    def __init__(self, , app: App, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
         # Create Lambda functions
         lambda_make_config = _lambda.Function(
             self, "MakeConfigLambdaFunction",
-            runtime=_lambda.Runtime.PYTHON_3_8,
+            runtime=_lambda.Runtime.PYTHON_3_11,
             handler="index.lambda_handler",
             code=_lambda.Code.from_asset("make_config/lambda/code")
         )
 
         lambda_retrieve_text = _lambda.Function(
             self, "RetrieveTextLambdaFunction",
-            runtime=_lambda.Runtime.PYTHON_3_8,
+            runtime=_lambda.Runtime.PYTHON_3_11,
             handler="index.lambda_handler",
             code=_lambda.Code.from_asset("retrieve_text/lambda/code")
         )
 
         lambda_make_prompt = _lambda.Function(
             self, "MakePromptLambdaFunction",
-            runtime=_lambda.Runtime.PYTHON_3_8,
+            runtime=_lambda.Runtime.PYTHON_3_11,
             handler="index.lambda_handler",
             code=_lambda.Code.from_asset("make_prompt/lambda/code")
         )
 
         lambda_call_llm = _lambda.Function(
             self, "CallLlmLambdaFunction",
-            runtime=_lambda.Runtime.PYTHON_3_8,
+            runtime=_lambda.Runtime.PYTHON_3_11,
             handler="index.lambda_handler",
             code=_lambda.Code.from_asset("call_llm/lambda/code")
         )
 
         lambda_post_processing = _lambda.Function(
             self, "PostProcessingLambdaFunction",
-            runtime=_lambda.Runtime.PYTHON_3_8,
+            runtime=_lambda.Runtime.PYTHON_3_11,
             handler="index.lambda_handler",
             code=_lambda.Code.from_asset("post_processing/lambda/code")
         )
@@ -112,7 +116,7 @@ class StepFunctionCdkStack(core.Stack):
             timeout=core.Duration.seconds(10)
         )
 
-app = core.App()
+app = App()
 S3BucketCdkStack(app, "S3BucketCdkStack")
 StepFunctionCdkStack(app, "StepFunctionCdkStack")
 app.synth()
